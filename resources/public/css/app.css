@@ -1,0 +1,13 @@
+body {
+  padding-top: 5rem;
+}
+
+.main {
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+
+.signup-form {
+  max-width: 500px;
+  margin: 2em auto 0 auto;
+}
