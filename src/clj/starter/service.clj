@@ -1,6 +1,7 @@
 (ns starter.service
   (:require
     [clojure.java.io :as io]
+    [environ.core :refer [env]]
     [io.pedestal.http :as http]
     [io.pedestal.http.body-params :as body-params]
     [io.pedestal.http.route.definition :refer [defroutes]]
@@ -31,13 +32,18 @@
      :object-src  "'none'"
      :script-src  "'self' 'unsafe-inline' 'unsafe-eval' https: http:"}))
 
+(def http-port
+  (if-let [port (env :port)]
+    (Integer/parseInt port)
+    8080))
+
 (def service
   {:env                     :prod
    ::http/routes            routes
    ::http/router            :linear-search
    ::http/resource-path     "/public"
    ::http/type              :jetty
-   ::http/port              8080
+   ::http/port              http-port
    ::http/container-options {:h2c? true
                              :h2?  false
                              :ssl? false}

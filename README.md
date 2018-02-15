@@ -38,6 +38,16 @@ lein figwheel dev
 
 Point your browser to: [http://localhost:8080](http://localhost:8080) and you should be ready to play.
 
+## Deployment with Docker
+
+```bash
+lein uberjar && docker build .
+```
+
+```bash
+docker run -e PORT=8000 -p 8000:8000 <image_id from above>
+```
+
 ## TODO
 
 * Package as a lein template

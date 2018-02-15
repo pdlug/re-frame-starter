@@ -2,7 +2,7 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.9.946"]
                  [reagent "0.8.0-alpha2"]
-                 [re-frame "0.10.4"]
+                 [re-frame "0.10.5"]
                  [ns-tracker "0.3.1"]
                  [day8.re-frame/http-fx "0.1.5"]
                  [cljs-ajax "0.7.3"]
@@ -10,8 +10,8 @@
                  [io.pedestal/pedestal.service "0.5.3"]
                  [io.pedestal/pedestal.service-tools "0.5.3"]
                  [io.pedestal/pedestal.jetty "0.5.3"]
-                 [com.walmartlabs/lacinia-pedestal "0.6.0"]
 
+                 [environ "1.1.0"]
                  [yogthos/config "1.1"]
                  [bidi "2.1.3"]
                  [cheshire "5.8.0"]
@@ -32,12 +32,6 @@
 
   :figwheel {:css-dirs ["resources/public/css"]}
 
-  :garden {:builds [{:id           "app"
-                     :source-paths ["src/clj"]
-                     :stylesheet   starter.css/app
-                     :compiler     {:output-to     "resources/public/css/app.css"
-                                    :pretty-print? true}}]}
-
   :profiles
   {:dev
    {:dependencies [[binaryage/devtools "0.9.9"]
@@ -53,7 +47,11 @@
    :uberjar
    {:prep-tasks   [["cljsbuild" "once" "min"]
                    "compile"]
-    :uberjar-name "starter.jar"}}
+    :env          {:production true}
+    :omit-source  true
+    :uberjar-name "starter.jar"
+    :main         starter.server
+    :aot          :all}}
 
   :cljsbuild
   {:builds
